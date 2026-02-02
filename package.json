@@ -6,7 +6,8 @@
   "scripts": {
     "test": "tsc --noEmit && prettier --check .",
     "dev": "vite",
-    "prepare": "husky"
+    "prepare": "husky",
+    "build": "vite build"
   },
   "repository": {
     "type": "git",
@@ -28,6 +29,7 @@
     "vite": "^7.3.1"
   },
   "dependencies": {
+    "ol": "^10.7.0",
     "react": "^19.2.4",
     "react-dom": "^19.2.4"
   },
