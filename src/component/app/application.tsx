@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from "react";
-import { Map, View } from "ol";
+import { Map, MapBrowserEvent, MapEvent, View } from "ol";
 import TileLayer from "ol/layer/Tile.js";
 import { OSM } from "ol/source.js";
 import { useGeographic } from "ol/proj.js";
@@ -42,9 +42,14 @@ export function Application() {
   // `useRef` bridges the gap between JavaScript functions that expect DOM objects and React components
   const mapRef = useRef<HTMLDivElement | null>(null);
   // When we display the page, we want the OpenLayers map object to target the DOM object refererred to by the
+  function handlePointerMove(e: MapBrowserEvent) {
+    console.log(e.coordinate);
+  }
+
   // map React component
   useEffect(() => {
     map.setTarget(mapRef.current!);
+    map.on("pointermove", handlePointerMove);
   }, []);
 
   // This is the location (in React) where we want the map to be displayed
