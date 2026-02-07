@@ -13,6 +13,7 @@ import "ol/ol.css";
 import "./application.css";
 import VectorLayer from "ol/layer/Vector.js";
 import VectorSource from "ol/source/Vector.js";
+import { GeoJSON } from "ol/format.js";
 
 // By calling the "useGeographic" function in OpenLayers, we tell that we want coordinates to be in degrees
 //  instead of meters, which is the default. Without this `center: [10.6, 59.9]` brings us to "null island"
@@ -20,12 +21,14 @@ useGeographic();
 
 // Here we create a Map object. Make sure you `import { Map } from "ol"`. Otherwise, the standard Javascript
 //  map data structure will be used
-const layers = [new TileLayer({ source: new OSM() })];
 const fylkeLayer = new VectorLayer({
   source: new VectorSource({
-    url: "http://",
+    url: "kw2100-uke5/geojson/fylker.json",
+    format: new GeoJSON(),
   }),
 });
+const layers = [new TileLayer({ source: new OSM() }), fylkeLayer];
+
 const map = new Map({
   // The map will be centered on a position in longitude (x-coordinate, east) and latitude (y-coordinate, north),
   //   with a certain zoom level
