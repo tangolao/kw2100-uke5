@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { Feature, Map, MapBrowserEvent, MapEvent, View } from "ol";
+import { Feature, Map, MapBrowserEvent, View } from "ol";
 import TileLayer from "ol/layer/Tile.js";
 import { OSM } from "ol/source.js";
 import { useGeographic } from "ol/proj.js";
@@ -61,7 +61,7 @@ export function Application() {
   return (
     <>
       <h1>
-        Fylke:
+        Fylke
         {activeFylke
           ? activeFylke.getProperties()["fylkesnavn"]
           : "Kart over administrative områder i Norge"}
