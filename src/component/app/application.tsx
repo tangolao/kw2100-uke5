@@ -23,7 +23,7 @@ useGeographic();
 //  map data structure will be used
 const fylkeLayer = new VectorLayer({
   source: new VectorSource({
-    url: "kw2100-uke5/geojson/fylker.json",
+    url: "kw2100-uke5/geojson/fylker.geojson",
     format: new GeoJSON(),
   }),
 });
