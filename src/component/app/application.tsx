@@ -61,6 +61,7 @@ export function Application() {
   return (
     <>
       <h1>
+        Fylke:
         {activeFylke
           ? activeFylke.getProperties()["fylkesnavn"]
           : "Kart over administrative områder i Norge"}
