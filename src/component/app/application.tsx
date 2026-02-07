@@ -21,11 +21,12 @@ useGeographic();
 
 // Here we create a Map object. Make sure you `import { Map } from "ol"`. Otherwise, the standard Javascript
 //  map data structure will be used
+const fylkeSource = new VectorSource({
+  url: "kw2100-uke5/geojson/fylker.geojson",
+  format: new GeoJSON(),
+});
 const fylkeLayer = new VectorLayer({
-  source: new VectorSource({
-    url: "kw2100-uke5/geojson/fylker.geojson",
-    format: new GeoJSON(),
-  }),
+  source: fylkeSource,
 });
 const layers = [new TileLayer({ source: new OSM() }), fylkeLayer];
 
@@ -43,7 +44,7 @@ export function Application() {
   const mapRef = useRef<HTMLDivElement | null>(null);
   // When we display the page, we want the OpenLayers map object to target the DOM object refererred to by the
   function handlePointerMove(e: MapBrowserEvent) {
-    console.log(e.coordinate);
+    fylkeSource.getFeaturesAtCoordinate(e.coordinate);
   }
 
   // map React component
