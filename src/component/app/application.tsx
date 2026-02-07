@@ -1,5 +1,5 @@
-import React, { useEffect, useRef } from "react";
-import { Map, MapBrowserEvent, MapEvent, View } from "ol";
+import React, { useEffect, useRef, useState } from "react";
+import { Feature, Map, MapBrowserEvent, MapEvent, View } from "ol";
 import TileLayer from "ol/layer/Tile.js";
 import { OSM } from "ol/source.js";
 import { useGeographic } from "ol/proj.js";
@@ -42,9 +42,13 @@ const map = new Map({
 export function Application() {
   // `useRef` bridges the gap between JavaScript functions that expect DOM objects and React components
   const mapRef = useRef<HTMLDivElement | null>(null);
+  const [activeFylke, setActiceFylke] = useState<Feature>();
   // When we display the page, we want the OpenLayers map object to target the DOM object refererred to by the
   function handlePointerMove(e: MapBrowserEvent) {
-    fylkeSource.getFeaturesAtCoordinate(e.coordinate);
+    const fylkeUnderPointer = fylkeSource.getFeaturesAtCoordinate(e.coordinate);
+    setActiceFylke(
+      fylkeUnderPointer.length > 0 ? fylkeUnderPointer[0] : undefined,
+    );
   }
 
   // map React component
@@ -54,5 +58,14 @@ export function Application() {
   }, []);
 
   // This is the location (in React) where we want the map to be displayed
-  return <div ref={mapRef}>Kart</div>;
+  return (
+    <>
+      <h1>
+        {activeFylke
+          ? activeFylke.getProperties()["fylkesnavn"]
+          : "Kart over administrative områder i Norge"}
+      </h1>
+      <div ref={mapRef}>Kart</div>;
+    </>
+  );
 }
